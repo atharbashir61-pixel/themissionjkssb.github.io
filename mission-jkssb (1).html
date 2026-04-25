@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mission JKSSB — Kashmir's Premier Coaching Platform</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --forest: #1a4731;
+    --forest-mid: #2d6a4f;
+    --forest-light: #40916c;
+    --saffron: #e07b00;
+    --saffron-light: #f59e0b;
+    --saffron-pale: #fef3c7;
+    --cream: #faf8f3;
+    --stone: #f5f0e8;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: #1c1c1e;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+  /* Ticker */
+  .ticker-wrap { overflow: hidden; background: var(--forest); }
+  .ticker-track {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 40s linear infinite;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Nav */
+  .nav-link {
+    position: relative;
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 2px;
+    background: var(--saffron);
+    transition: width 0.25s ease;
+  }
+  .nav-link:hover { color: var(--forest); }
+  .nav-link:hover::after { width: 100%; }
+
+  /* Hero */
+  .hero-bg {
+    background: linear-gradient(135deg, #0d2b1d 0%, #1a4731 40%, #2d6a4f 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(224,123,0,0.12) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(64,145,108,0.2) 0%, transparent 50%);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M30 0l30 30-30 30L0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Saffron badge */
+  .saffron-badge {
+    background: linear-gradient(135deg, var(--saffron), #f59e0b);
+    color: white;
+    font-weight: 600;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* CTA Button */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--saffron), #d97706);
+    color: white;
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(224,123,0,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    font-weight: 500;
+    padding: 0.875rem 2rem;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: white;
+  }
+
+  /* Cards */
+  .course-card {
+    background: white;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid #f0ece4;
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  /* Subject pills */
+  .subject-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--stone);
+    border: 1px solid #e5e0d4;
+    border-radius: 9999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .subject-pill:hover, .subject-pill.active {
+    background: var(--forest);
+    color: white;
+    border-color: var(--forest);
+  }
+
+  /* MCQ Card */
+  .mcq-option {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 0.625rem;
+    border: 1.5px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.9rem;
+    background: white;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .mcq-option:hover { border-color: var(--forest-light); background: #f0f9f4; }
+  .mcq-option.correct { border-color: #16a34a; background: #f0fdf4; color: #15803d; font-weight: 500; }
+  .mcq-option.wrong { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
+
+  /* Resource card */
+  .resource-card {
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .resource-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border-color: var(--forest-light);
+  }
+
+  /* Section nav */
+  .section-nav-btn {
+    padding: 0.6rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1.5px solid #e5e7eb;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .section-nav-btn:hover { border-color: var(--forest-light); color: var(--forest); }
+  .section-nav-btn.active {
+    background: var(--forest);
+    color: white;
+    border-color: var(--forest);
+  }
+
+  /* Mock test */
+  .mock-card {
+    background: white;
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .mock-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .mock-card-header { padding: 1.25rem 1.25rem 0; }
+  .mock-card-body { padding: 1rem 1.25rem 1.25rem; }
+
+  /* Timer */
+  .timer-badge {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    border-radius: 9999px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    background: #e5e7eb;
+    border-radius: 9999px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--forest-mid), var(--forest-light));
+    transition: width 0.5s ease;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+  }
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+    border: 1px solid transparent;
+  }
+  .sidebar-item:hover { background: var(--stone); color: var(--forest); }
+  .sidebar-item.active {
+    background: var(--forest);
+    color: white;
+    border-color: var(--forest);
+  }
+
+  /* Telegram button */
+  .telegram-btn {
+    background: linear-gradient(135deg, #229ED9, #1a7daa);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 0.875rem 2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .telegram-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(34,158,217,0.35);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fadeUp 0.6s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+
+  /* Page sections */
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  /* Mobile menu */
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: block; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem !important; }
+    .desktop-nav { display: none; }
+  }
+
+  .urdu-text {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    font-size: 1.1rem;
+  }
+
+  /* Floating badge */
+  .floating-badge {
+    position: absolute;
+    background: white;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .tab-underline {
+    display: flex;
+    border-bottom: 2px solid #e5e7eb;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .tab-item {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-item:hover { color: var(--forest); }
+  .tab-item.active { color: var(--forest); border-bottom-color: var(--forest); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap py-2">
+  <div class="ticker-track">
+    <span class="text-white text-sm px-8 flex items-center gap-4">
+      <span class="saffron-badge">NEW</span> JKSSB Junior Assistant Exam Date 2025 — Check Official Notification &nbsp;|&nbsp;
+      <span class="saffron-badge">HOT</span> SSC CGL Tier-II Results Declared — View Merit List &nbsp;|&nbsp;
+      <span class="saffron-badge">UPDATE</span> Economic Survey 2024-25 Key Highlights — Download Now &nbsp;|&nbsp;
+      <span class="saffron-badge">ALERT</span> Patwari Recruitment 2025 — Applications Open Till 15 Aug &nbsp;|&nbsp;
+      <span class="saffron-badge">MOCK</span> New Full-Length Mock Test Added: JKSSB Junior Assistant Set-7 &nbsp;|&nbsp;
+      <span class="saffron-badge">GK</span> J&K Reorganisation — Complete Notes Updated for 2025 Exams &nbsp;|&nbsp;
+    </span>
+    <span class="text-white text-sm px-8 flex items-center gap-4" aria-hidden="true">
+      <span class="saffron-badge">NEW</span> JKSSB Junior Assistant Exam Date 2025 — Check Official Notification &nbsp;|&nbsp;
+      <span class="saffron-badge">HOT</span> SSC CGL Tier-II Results Declared — View Merit List &nbsp;|&nbsp;
+      <span class="saffron-badge">UPDATE</span> Economic Survey 2024-25 Key Highlights — Download Now &nbsp;|&nbsp;
+      <span class="saffron-badge">ALERT</span> Patwari Recruitment 2025 — Applications Open Till 15 Aug &nbsp;|&nbsp;
+      <span class="saffron-badge">MOCK</span> New Full-Length Mock Test Added: JKSSB Junior Assistant Set-7 &nbsp;|&nbsp;
+      <span class="saffron-badge">GK</span> J&K Reorganisation — Complete Notes Updated for 2025 Exams &nbsp;|&nbsp;
+    </span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: var(--forest);">
+        <span class="text-white font-bold text-sm">MJ</span>
+      </div>
+      <div>
+        <div class="font-bold text-base leading-tight" style="font-family:'Playfair Display',serif; color: var(--forest);">The Mission JKSSB</div>
+        <div class="text-xs text-gray-400 leading-tight">Kashmir's Coaching Brand</div>
+      </div>
+    </div>
+
+    <!-- Desktop Nav -->
+    <div class="desktop-nav hidden md:flex items-center gap-6">
+      <button class="nav-link" onclick="showPage('home')">Home</button>
+      <button class="nav-link" onclick="showPage('courses')">Courses</button>
+      <button class="nav-link" onclick="showPage('mock-tests')">Mock Tests</button>
+      <button class="nav-link" onclick="showPage('resources')">Resources</button>
+      <button class="nav-link" onclick="showPage('about')">About</button>
+      <button class="nav-link" onclick="showPage('contact')">Contact</button>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="#" class="btn-primary text-sm py-2 px-4" style="border-radius:0.625rem;">Join Free</a>
+      <button class="md:hidden p-2" onclick="toggleMobile()">
+        <i data-lucide="menu" style="width:22px;height:22px;color:var(--forest)"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div id="mobile-menu" class="border-t border-gray-100 bg-white px-4 py-3">
+    <div class="grid grid-cols-2 gap-2">
+      <button class="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="showPage('home');toggleMobile()">🏠 Home</button>
+      <button class="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="showPage('courses');toggleMobile()">📚 Courses</button>
+      <button class="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="showPage('mock-tests');toggleMobile()">📝 Mock Tests</button>
+      <button class="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="showPage('resources');toggleMobile()">📥 Resources</button>
+      <button class="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="showPage('about');toggleMobile()">👤 About</button>
+      <button class="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="showPage('contact');toggleMobile()">✉️ Contact</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================== HOME PAGE ======================== -->
+<div id="page-home" class="page-section active">
+
+  <!-- HERO -->
+  <section class="hero-bg py-20 md:py-28 relative">
+    <div class="hero-pattern"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="flex items-center gap-2 mb-5 animate-fade-up">
+            <span class="saffron-badge">Kashmir's #1 Platform</span>
+            <span class="text-white/60 text-sm">Est. 2023</span>
+          </div>
+          <h1 class="hero-title text-white leading-tight mb-4 animate-fade-up delay-1" style="font-size:3.5rem; font-family:'Playfair Display',serif;">
+            Crack JKSSB &<br><span style="color:#f59e0b">SSC CGL</span><br>with Confidence
+          </h1>
+          <p class="text-green-100/80 text-lg mb-3 animate-fade-up delay-2 leading-relaxed">
+            Expert coaching by a local educator who understands the Valley's aspirants. From Quantitative Aptitude to J&K GK — we've got you covered.
+          </p>
+          <p class="urdu-text text-amber-300/90 mb-8 animate-fade-up delay-2" style="font-size:1.2rem;">
+            آپ کا خواب، ہماری ذمہ داری
+          </p>
+          <div class="flex flex-wrap gap-3 animate-fade-up delay-3">
+            <a href="#" class="btn-primary" onclick="showPage('courses');return false;">
+              <i data-lucide="book-open" style="width:18px;height:18px"></i>
+              Start Learning
+            </a>
+            <a href="#" class="btn-outline" onclick="showPage('mock-tests');return false;">
+              <i data-lucide="clipboard-list" style="width:18px;height:18px"></i>
+              Take Free Mock Test
+            </a>
+          </div>
+
+
+        </div>
+
+        <!-- Hero right: floating cards -->
+        <div class="hidden md:block relative h-80">
+          <div class="absolute top-4 left-8 floating-badge" style="animation-delay:0s;">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background:var(--forest)">JK</div>
+            <div>
+              <div class="text-xs font-semibold" style="color:var(--forest)">JKSSB Junior Asst.</div>
+              <div class="text-xs text-gray-500">New batch starting Aug 1</div>
+            </div>
+          </div>
+          <div class="absolute top-28 right-4 floating-badge" style="animation-delay:1s;">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background:var(--saffron)">SC</div>
+            <div>
+              <div class="text-xs font-semibold" style="color:var(--saffron)">SSC CGL Complete</div>
+              <div class="text-xs text-gray-500">New batch starting Aug 5</div>
+            </div>
+          </div>
+
+          <!-- Decorative circle -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full opacity-10" style="background: radial-gradient(circle, #f59e0b, transparent);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- FEATURED COURSES -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <div class="text-center mb-12">
+      <span class="saffron-badge mb-3 inline-block">Our Programmes</span>
+      <h2 class="text-4xl font-bold mb-3" style="color:var(--forest)">Choose Your Path</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Structured courses designed around the exact JKSSB and SSC CGL syllabus. No fluff, only what matters.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="course-card" onclick="showPage('courses')">
+        <div class="h-2" style="background: linear-gradient(90deg, var(--forest), var(--forest-light))"></div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:var(--stone)">
+            <i data-lucide="building-2" style="width:22px;height:22px;color:var(--forest)"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded" style="background:#e8f5ee;color:var(--forest)">JKSSB</span>
+          <h3 class="text-xl font-bold mt-3 mb-2">Junior Assistant Complete</h3>
+          <p class="text-gray-500 text-sm mb-4 leading-relaxed">Full syllabus: Reasoning, English, Maths, J&K GK. Includes PYQs and topic-wise MCQs.</p>
+
+        </div>
+        <div class="px-6 pb-4">
+          <div class="flex items-center justify-between py-3 border-t border-gray-100">
+            <span class="text-2xl font-bold" style="color:var(--forest)">Free</span>
+            <span class="btn-primary text-sm py-2 px-4">Enroll Now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="course-card" onclick="showPage('courses')">
+        <div class="h-2" style="background: linear-gradient(90deg, var(--saffron), #f59e0b)"></div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#fef3c7">
+            <i data-lucide="award" style="width:22px;height:22px;color:var(--saffron)"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded" style="background:#fef3c7;color:#92400e">SSC CGL</span>
+          <h3 class="text-xl font-bold mt-3 mb-2">SSC CGL Tier I + II</h3>
+          <p class="text-gray-500 text-sm mb-4 leading-relaxed">Quantitative Aptitude, English, Reasoning, GK. Tier-II Data Interpretation included.</p>
+
+        </div>
+        <div class="px-6 pb-4">
+          <div class="flex items-center justify-between py-3 border-t border-gray-100">
+            <span class="text-2xl font-bold" style="color:var(--saffron)">Free</span>
+            <span class="btn-primary text-sm py-2 px-4" style="background:linear-gradient(135deg,var(--saffron),#d97706)">Enroll Now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="course-card" onclick="showPage('courses')">
+        <div class="h-2" style="background: linear-gradient(90deg, #7c3aed, #a78bfa)"></div>
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#f5f3ff">
+            <i data-lucide="map-pin" style="width:22px;height:22px;color:#7c3aed"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded" style="background:#f5f3ff;color:#7c3aed">JKSSB</span>
+          <h3 class="text-xl font-bold mt-3 mb-2">Patwari Recruitment</h3>
+          <p class="text-gray-500 text-sm mb-4 leading-relaxed">Revenue laws, Land records, J&K geography. Complete preparation for Patwari posts.</p>
+
+        </div>
+        <div class="px-6 pb-4">
+          <div class="flex items-center justify-between py-3 border-t border-gray-100">
+            <span class="text-2xl font-bold" style="color:#7c3aed">Free</span>
+            <span class="btn-primary text-sm py-2 px-4" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">Enroll Now</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <button class="btn-outline" style="color:var(--forest);border-color:var(--forest);" onclick="showPage('courses')">View All Courses →</button>
+    </div>
+  </section>
+
+
+
+</div>
+
+<!-- ======================== COURSES PAGE ======================== -->
+<div id="page-courses" class="page-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-10">
+      <span class="saffron-badge mb-3 inline-block">All Programmes</span>
+      <h2 class="text-4xl font-bold mb-2" style="color:var(--forest)">Courses & Modules</h2>
+      <p class="text-gray-500">Topic-wise, structured preparation for every JKSSB and SSC exam.</p>
+    </div>
+
+    <!-- Filter pills -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button class="subject-pill active" onclick="filterCourses(this,'all')">All</button>
+      <button class="subject-pill" onclick="filterCourses(this,'jkssb')">JKSSB</button>
+      <button class="subject-pill" onclick="filterCourses(this,'ssc')">SSC CGL</button>
+      <button class="subject-pill" onclick="filterCourses(this,'math')">Quantitative Aptitude</button>
+      <button class="subject-pill" onclick="filterCourses(this,'english')">English Grammar</button>
+      <button class="subject-pill" onclick="filterCourses(this,'gk')">J&K GK</button>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="courses-grid">
+      <!-- Course cards -->
+      <div class="course-card" data-tag="jkssb math english gk">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#e8f5ee;color:var(--forest)">JKSSB</span>
+            <span class="text-xs text-gray-400">120 lessons</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Junior Assistant — Complete Pack</h3>
+          <p class="text-gray-500 text-sm mb-3">Reasoning, English, Maths, J&K GK + Current Affairs</p>
+
+          <button class="btn-primary text-sm w-full justify-center" style="border-radius:0.75rem;">Start Course</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-tag="ssc math english gk">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#fef3c7;color:#92400e">SSC CGL</span>
+            <span class="text-xs text-gray-400">180 lessons</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">SSC CGL Tier I + II</h3>
+          <p class="text-gray-500 text-sm mb-3">QA, English, Reasoning, GK, Data Interpretation</p>
+
+          <button class="btn-primary text-sm w-full justify-center" style="border-radius:0.75rem;background:linear-gradient(135deg,var(--saffron),#d97706)">Start Course</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-tag="jkssb math">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#e8f5ee;color:var(--forest)">JKSSB</span>
+            <span class="text-xs text-gray-400">60 lessons</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Quantitative Aptitude Mastery</h3>
+          <p class="text-gray-500 text-sm mb-3">Number systems, Algebra, Percentages, DI, Speed & Distance</p>
+
+          <button class="btn-primary text-sm w-full justify-center" style="border-radius:0.75rem;">Start Course</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-tag="jkssb ssc english">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#ede9fe;color:#7c3aed">Both</span>
+            <span class="text-xs text-gray-400">45 lessons</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">English Grammar & Comprehension</h3>
+          <p class="text-gray-500 text-sm mb-3">Spotting errors, Cloze test, Idioms, RC passages</p>
+
+          <button class="btn-primary text-sm w-full justify-center" style="border-radius:0.75rem;background:linear-gradient(135deg,#7c3aed,#6d28d9)">Start Course</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-tag="jkssb gk">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#fce7f3;color:#be185d">JKSSB</span>
+            <span class="text-xs text-gray-400">80 lessons</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">J&K GK & Current Affairs</h3>
+          <p class="text-gray-500 text-sm mb-3">History, Geography, Economy, Art & Culture, Reorganisation Act</p>
+
+          <button class="btn-primary text-sm w-full justify-center" style="border-radius:0.75rem;background:linear-gradient(135deg,#be185d,#9d174d)">Start Course</button>
+        </div>
+      </div>
+
+      <div class="course-card" data-tag="jkssb gk">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#e8f5ee;color:var(--forest)">JKSSB</span>
+            <span class="text-xs text-gray-400">55 lessons</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Patwari Recruitment Special</h3>
+          <p class="text-gray-500 text-sm mb-3">Revenue laws, J&K Land records, Local Govt. structure</p>
+
+          <button class="btn-primary text-sm w-full justify-center" style="border-radius:0.75rem;">Start Course</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== MOCK TESTS PAGE ======================== -->
+<div id="page-mock-tests" class="page-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-6">
+      <span class="saffron-badge mb-3 inline-block">Practice Zone</span>
+      <h2 class="text-4xl font-bold mb-2" style="color:var(--forest)">Mock Tests & MCQs</h2>
+      <p class="text-gray-500">Simulate the actual exam. Get instant results. Identify weak areas.</p>
+    </div>
+
+    <!-- Sub-navigation -->
+    <div class="flex gap-3 flex-wrap mb-8">
+      <button class="section-nav-btn active" onclick="switchMockTab(this,'full-length')">📋 Full-Length Mock Tests</button>
+      <button class="section-nav-btn" onclick="switchMockTab(this,'topic-mcq')">🎯 Topic-Wise MCQs</button>
+      <button class="section-nav-btn" onclick="switchMockTab(this,'prev-papers')">📂 Previous Year Papers</button>
+    </div>
+
+    <!-- Full Length Tests -->
+    <div id="tab-full-length">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Test Card -->
+        <div class="mock-card" onclick="startMockTest(this,'JKSSB Junior Assistant — Set 7','100','90')">
+          <div class="mock-card-header">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#e8f5ee;color:var(--forest)">JKSSB</span>
+              <span class="timer-badge">90 min</span>
+            </div>
+            <h3 class="font-bold text-base mb-1">JKSSB Junior Assistant — Set 7</h3>
+            <p class="text-gray-400 text-sm">Full syllabus | 100 Questions | 2025 pattern</p>
+          </div>
+          <div class="mock-card-body">
+
+            <div class="flex gap-2">
+              <button class="btn-primary text-sm py-2 flex-1 justify-center" style="border-radius:0.625rem;">Start Test</button>
+              <button class="py-2 px-3 rounded-lg border border-gray-200 text-gray-500 text-sm hover:bg-gray-50">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-card" onclick="startMockTest(this,'SSC CGL Tier-I — Mock 12','100','60')">
+          <div class="mock-card-header">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#fef3c7;color:#92400e">SSC CGL</span>
+              <span class="timer-badge">60 min</span>
+            </div>
+            <h3 class="font-bold text-base mb-1">SSC CGL Tier-I — Mock 12</h3>
+            <p class="text-gray-400 text-sm">All 4 sections | 100 Questions | Latest pattern</p>
+          </div>
+          <div class="mock-card-body">
+
+            <div class="flex gap-2">
+              <button class="btn-primary text-sm py-2 flex-1 justify-center" style="border-radius:0.625rem;background:linear-gradient(135deg,var(--saffron),#d97706)">Start Test</button>
+              <button class="py-2 px-3 rounded-lg border border-gray-200 text-gray-500 text-sm hover:bg-gray-50">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-card" onclick="startMockTest(this,'JKSSB Patwari — Set 4','80','75')">
+          <div class="mock-card-header">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#ede9fe;color:#7c3aed">JKSSB</span>
+              <span class="timer-badge">75 min</span>
+            </div>
+            <h3 class="font-bold text-base mb-1">JKSSB Patwari — Set 4</h3>
+            <p class="text-gray-400 text-sm">Revenue & Land | 80 Questions</p>
+          </div>
+          <div class="mock-card-body">
+
+            <div class="flex gap-2">
+              <button class="btn-primary text-sm py-2 flex-1 justify-center" style="border-radius:0.625rem;background:linear-gradient(135deg,#7c3aed,#6d28d9)">Start Test</button>
+              <button class="py-2 px-3 rounded-lg border border-gray-200 text-gray-500 text-sm hover:bg-gray-50">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#e8f5ee;color:var(--forest)">JKSSB</span>
+              <span class="timer-badge">90 min</span>
+            </div>
+            <h3 class="font-bold text-base mb-1">JKSSB Junior Assistant — Set 6</h3>
+            <p class="text-gray-400 text-sm">Full syllabus | 100 Questions</p>
+          </div>
+          <div class="mock-card-body">
+
+            <div class="flex gap-2">
+              <button class="btn-primary text-sm py-2 flex-1 justify-center" style="border-radius:0.625rem;">Start Test</button>
+              <button class="py-2 px-3 rounded-lg border border-gray-200 text-gray-500 text-sm">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background:#fef3c7;color:#92400e">SSC CGL</span>
+              <span class="timer-badge">60 min</span>
+            </div>
+            <h3 class="font-bold text-base mb-1">SSC CGL Tier-I — Mock 11</h3>
+            <p class="text-gray-400 text-sm">All 4 sections | 100 Questions</p>
+          </div>
+          <div class="mock-card-body">
+
+            <div class="flex gap-2">
+              <button class="btn-primary text-sm py-2 flex-1 justify-center" style="border-radius:0.625rem;background:linear-gradient(135deg,var(--saffron),#d97706)">Start Test</button>
+              <button class="py-2 px-3 rounded-lg border border-gray-200 text-gray-500 text-sm">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-card border-2 border-dashed border-gray-200 flex items-center justify-center" style="min-height:180px;">
+          <div class="text-center">
+            <i data-lucide="plus-circle" style="width:32px;height:32px;color:#d1d5db;margin:0 auto 8px"></i>
+            <p class="text-gray-400 text-sm">More tests being added<br>Join Telegram for alerts</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic-wise MCQs -->
+    <div id="tab-topic-mcq" class="hidden">
+      <div class="grid lg:grid-cols-4 gap-6">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="bg-white rounded-2xl border border-gray-100 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3 px-2">Subjects</p>
+            <div class="space-y-1">
+              <div class="sidebar-item active" onclick="loadMCQ(this,'qa')">
+                <i data-lucide="calculator" style="width:16px;height:16px"></i> Quantitative Aptitude
+              </div>
+              <div class="sidebar-item" onclick="loadMCQ(this,'english')">
+                <i data-lucide="book" style="width:16px;height:16px"></i> English Grammar
+              </div>
+              <div class="sidebar-item" onclick="loadMCQ(this,'jkgk')">
+                <i data-lucide="map-pin" style="width:16px;height:16px"></i> J&K GK
+              </div>
+              <div class="sidebar-item" onclick="loadMCQ(this,'history')">
+                <i data-lucide="landmark" style="width:16px;height:16px"></i> Modern History
+              </div>
+              <div class="sidebar-item" onclick="loadMCQ(this,'reasoning')">
+                <i data-lucide="brain" style="width:16px;height:16px"></i> Reasoning
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MCQ Panel -->
+        <div class="lg:col-span-3">
+          <div class="bg-white rounded-2xl border border-gray-100 p-6" id="mcq-panel">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h3 class="text-xl font-bold" id="mcq-subject-title">Quantitative Aptitude</h3>
+                <p class="text-gray-400 text-sm">Question <span id="mcq-current">1</span> of <span id="mcq-total">5</span></p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">Score: <span id="mcq-score">0</span></span>
+              </div>
+            </div>
+            <div class="progress-bar mb-6">
+              <div class="progress-fill" id="mcq-progress" style="width:20%"></div>
+            </div>
+            <div id="mcq-question-area">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="flex gap-3 mt-6">
+              <button class="btn-primary text-sm py-2 px-5" style="border-radius:0.625rem;" onclick="nextMCQ()" id="mcq-next-btn">Next Question →</button>
+              <button class="py-2 px-4 rounded-lg border border-gray-200 text-gray-500 text-sm hover:bg-gray-50" onclick="loadMCQ(document.querySelector('.sidebar-item.active'), currentSubject)">Restart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Previous Year Papers -->
+    <div id="tab-prev-papers" class="hidden">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="resource-card" onclick="downloadResource('JKSSB JA PYQ 2023')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fee2e2">
+            <i data-lucide="file-text" style="width:22px;height:22px;color:#dc2626"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">JKSSB Junior Assistant — 2023 PYQ</div>
+            <div class="text-xs text-gray-400">100 Questions | Solved with explanations</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('SSC CGL Tier-I 2023')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fef3c7">
+            <i data-lucide="file-text" style="width:22px;height:22px;color:var(--saffron)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">SSC CGL Tier-I 2023 PYQ</div>
+            <div class="text-xs text-gray-400">100 Questions | All shifts</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('JKSSB Patwari PYQ 2023')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#ede9fe">
+            <i data-lucide="file-text" style="width:22px;height:22px;color:#7c3aed"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">JKSSB Patwari 2022-23 PYQ</div>
+            <div class="text-xs text-gray-400">80 Questions | Revenue Law focus</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('SSC CGL Tier-II 2022')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fce7f3">
+            <i data-lucide="file-text" style="width:22px;height:22px;color:#be185d"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">SSC CGL Tier-II 2022 PYQ</div>
+            <div class="text-xs text-gray-400">Mathematics + English | Full paper</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('JKSSB JA PYQ 2021')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#e8f5ee">
+            <i data-lucide="file-text" style="width:22px;height:22px;color:var(--forest)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">JKSSB Junior Assistant — 2021 PYQ</div>
+            <div class="text-xs text-gray-400">100 Questions | Memory-based</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('SSC CGL Tier-I 2022')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fef3c7">
+            <i data-lucide="file-text" style="width:22px;height:22px;color:var(--saffron)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">SSC CGL Tier-I 2022 PYQ</div>
+            <div class="text-xs text-gray-400">All shifts compiled | With solutions</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== RESOURCES PAGE ======================== -->
+<div id="page-resources" class="page-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-10">
+      <span class="saffron-badge mb-3 inline-block">Free Downloads</span>
+      <h2 class="text-4xl font-bold mb-2" style="color:var(--forest)">Study Resources</h2>
+      <p class="text-gray-500">Curated, digitized study notes and the latest Economic Survey updates. All free.</p>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="tab-underline mb-8">
+      <div class="tab-item active" onclick="switchResTab(this,'notes')">Study Notes</div>
+      <div class="tab-item" onclick="switchResTab(this,'eco')">Economic Survey 2024-25</div>
+      <div class="tab-item" onclick="switchResTab(this,'current')">Current Affairs</div>
+    </div>
+
+    <div id="res-notes">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="resource-card" onclick="downloadResource('QA Notes PDF')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#e8f5ee">
+            <i data-lucide="calculator" style="width:22px;height:22px;color:var(--forest)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">Quantitative Aptitude — Complete Notes</div>
+            <div class="text-xs text-gray-400">PDF · 48 pages · Shortcuts & Formulas</div>
+            <div class="text-xs mt-1" style="color:var(--forest)"></div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+
+        <div class="resource-card" onclick="downloadResource('English Grammar Notes')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#ede9fe">
+            <i data-lucide="book-open" style="width:22px;height:22px;color:#7c3aed"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">English Grammar — Full Notes</div>
+            <div class="text-xs text-gray-400">PDF · 36 pages · Error Spotting & RC Tips</div>
+
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+
+        <div class="resource-card" onclick="downloadResource('JK GK Notes')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fce7f3">
+            <i data-lucide="map" style="width:22px;height:22px;color:#be185d"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">J&K GK — Comprehensive Notes</div>
+            <div class="text-xs text-gray-400">PDF · 72 pages · History, Geography, Economy</div>
+
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+
+        <div class="resource-card" onclick="downloadResource('Modern History Notes')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fef3c7">
+            <i data-lucide="landmark" style="width:22px;height:22px;color:var(--saffron)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">Modern History — Notes</div>
+            <div class="text-xs text-gray-400">PDF · 54 pages · 1857 to Independence</div>
+
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+
+        <div class="resource-card" onclick="downloadResource('Reasoning Notes')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#e8f5ee">
+            <i data-lucide="brain" style="width:22px;height:22px;color:var(--forest)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">Logical Reasoning — Quick Revision</div>
+            <div class="text-xs text-gray-400">PDF · 30 pages · All reasoning types</div>
+
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+
+        <div class="resource-card" onclick="downloadResource('JK Reorganisation Notes')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fef3c7">
+            <i data-lucide="file-check" style="width:22px;height:22px;color:var(--saffron)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibuan text-sm mb-0.5">J&K Reorganisation Act — Detailed Notes</div>
+            <div class="text-xs text-gray-400">PDF · 22 pages · Most important for JKSSB</div>
+
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="res-eco" class="hidden">
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6 flex items-start gap-4">
+        <i data-lucide="info" style="width:20px;height:20px;color:var(--saffron);flex-shrink:0;margin-top:2px"></i>
+        <p class="text-sm text-amber-800">Economic Survey 2024-25 highlights are curated specifically for JKSSB and SSC CGL aspirants. Focus chapters for J&K aspirants are marked separately.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="resource-card" onclick="downloadResource('Eco Survey Ch1')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fef3c7">
+            <i data-lucide="trending-up" style="width:22px;height:22px;color:var(--saffron)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">Economic Survey 2024-25 — Full Summary</div>
+            <div class="text-xs text-gray-400">PDF · 40 pages · Exam-focused highlights</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('JK Economy Notes')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#e8f5ee">
+            <i data-lucide="bar-chart-2" style="width:22px;height:22px;color:var(--forest)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">J&K Economic Data 2025 — Key Stats</div>
+            <div class="text-xs text-gray-400">PDF · 15 pages · Sector-wise analysis</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="res-current" class="hidden">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="resource-card" onclick="downloadResource('CA June 2025')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#e8f5ee">
+            <i data-lucide="newspaper" style="width:22px;height:22px;color:var(--forest)"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">Current Affairs — June 2025</div>
+            <div class="text-xs text-gray-400">PDF · 25 pages · National + J&K focus</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+        <div class="resource-card" onclick="downloadResource('CA May 2025')">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fce7f3">
+            <i data-lucide="newspaper" style="width:22px;height:22px;color:#be185d"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-sm mb-0.5">Current Affairs — May 2025</div>
+            <div class="text-xs text-gray-400">PDF · 22 pages · National + J&K focus</div>
+          </div>
+          <i data-lucide="download" style="width:18px;height:18px;color:#9ca3af"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== ABOUT PAGE ======================== -->
+<div id="page-about" class="page-section">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="saffron-badge mb-4 inline-block">About the Educator</span>
+        <h2 class="text-4xl font-bold mb-4" style="color:var(--forest)">Your Guide to Government Success</h2>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          I am a dedicated educator from the Kashmir Valley with a deep understanding of what it takes to crack competitive exams like JKSSB and SSC CGL. My academic foundation — an MA in Public Administration and a Diploma in Computer Applications — gives me the edge to teach both theoretical concepts and practical skills.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Having seen firsthand how aspirants from rural Kashmir struggle to access quality coaching, I built The Mission JKSSB to bridge that gap. Every resource, every mock test, and every MCQ is crafted with the Kashmiri student's context in mind.
+        </p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:var(--stone)">
+              <i data-lucide="graduation-cap" style="width:16px;height:16px;color:var(--forest)"></i>
+            </div>
+            <span class="text-sm text-gray-700">MA Public Administration — University of Kashmir</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:var(--stone)">
+              <i data-lucide="monitor" style="width:16px;height:16px;color:var(--forest)"></i>
+            </div>
+            <span class="text-sm text-gray-700">Diploma in Computer Applications</span>
+          </div>
+
+
+        </div>
+      </div>
+      <div>
+        <div class="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
+          <div class="w-24 h-24 rounded-2xl flex items-center justify-center text-white text-3xl font-bold mb-6 mx-auto" style="background:linear-gradient(135deg,var(--forest),var(--forest-light))">
+            MJ
+          </div>
+          <h3 class="text-xl font-bold text-center mb-1">The Mission JKSSB Educator</h3>
+          <p class="text-gray-400 text-sm text-center mb-6">Kashmir Valley · Est. 2023</p>
+
+          <div class="border-t border-gray-100 pt-4 text-center">
+            <p class="text-xs text-gray-500 italic">"Education is the most powerful weapon you can use to change the world — especially your own."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== CONTACT PAGE ======================== -->
+<div id="page-contact" class="page-section">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <div class="text-center mb-10">
+      <span class="saffron-badge mb-3 inline-block">Get in Touch</span>
+      <h2 class="text-4xl font-bold mb-2" style="color:var(--forest)">Contact Us</h2>
+      <p class="text-gray-500">Have a question? Want to join? We're here for you.</p>
+    </div>
+
+    <!-- Telegram CTA -->
+    <div class="rounded-3xl p-8 text-white text-center mb-10" style="background:linear-gradient(135deg,#1a4731,#2d6a4f)">
+      <i data-lucide="send" style="width:40px;height:40px;margin:0 auto 12px;opacity:0.9"></i>
+      <h3 class="text-2xl font-bold mb-2">Join Our Telegram Channel</h3>
+      <p class="text-green-200/80 mb-6">Get instant updates on JKSSB notifications, new mock tests, daily MCQs and free study materials. Join our growing community!</p>
+      <a href="https://t.me/missionjkssb" class="telegram-btn mx-auto">
+        <i data-lucide="send" style="width:20px;height:20px"></i>
+        Join The Mission JKSSB on Telegram
+      </a>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
+      <h3 class="text-xl font-bold mb-6">Send a Message</h3>
+      <div class="grid md:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Full Name</label>
+          <input type="text" placeholder="Your name" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-100">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Phone / WhatsApp</label>
+          <input type="text" placeholder="+91 xxxxxx xxxx" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-100">
+        </div>
+      </div>
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-600 mb-1.5">Target Exam</label>
+        <select class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-100">
+          <option>Select exam</option>
+          <option>JKSSB Junior Assistant</option>
+          <option>JKSSB Patwari</option>
+          <option>SSC CGL</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 mb-1.5">Message</label>
+        <textarea rows="4" placeholder="Your question or message..." class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-100 resize-none"></textarea>
+      </div>
+      <button class="btn-primary w-full justify-center" onclick="submitContact()" style="border-radius:0.875rem;">
+        <i data-lucide="send" style="width:18px;height:18px"></i>
+        Send Message
+      </button>
+      <p class="text-xs text-gray-400 text-center mt-3">We typically respond within 24 hours via Telegram or phone.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--forest); color:white;" class="py-12 mt-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">MJ</span>
+          </div>
+          <span class="font-bold text-lg" style="font-family:'Playfair Display',serif">The Mission JKSSB</span>
+        </div>
+        <p class="text-green-200/70 text-sm leading-relaxed">Kashmir's premier coaching platform for JKSSB and SSC aspirants.</p>
+        <p class="urdu-text text-amber-300/80 mt-2" style="font-size:0.95rem;">آپ کا خواب، ہماری ذمہ داری</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Quick Links</h4>
+        <div class="space-y-2 text-sm text-green-200/70">
+          <div class="cursor-pointer hover:text-white" onclick="showPage('home')">Home</div>
+          <div class="cursor-pointer hover:text-white" onclick="showPage('courses')">Courses</div>
+          <div class="cursor-pointer hover:text-white" onclick="showPage('mock-tests')">Mock Tests</div>
+          <div class="cursor-pointer hover:text-white" onclick="showPage('resources')">Resources</div>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Exams</h4>
+        <div class="space-y-2 text-sm text-green-200/70">
+          <div>JKSSB Junior Assistant</div>
+          <div>JKSSB Patwari</div>
+          <div>SSC CGL Tier I & II</div>
+          <div>JKSSB Accounts Asst.</div>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Connect</h4>
+        <a href="https://t.me/missionjkssb" class="telegram-btn text-sm py-2 px-4 mb-3 inline-flex">
+          <i data-lucide="send" style="width:16px;height:16px"></i> Telegram
+        </a>
+        <p class="text-xs text-green-200/60 mt-3">© 2025 The Mission JKSSB. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast notification -->
+<div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white text-sm px-5 py-3 rounded-xl shadow-xl z-50 transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2">
+  <i data-lucide="check-circle" style="width:18px;height:18px;color:#4ade80"></i>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// MCQ Data
+const mcqData = {
+  qa: [
+    { q: "If the cost price of 15 articles equals the selling price of 12 articles, then what is the profit percentage?", options: ["20%", "25%", "30%", "15%"], ans: 1 },
+    { q: "A train 150m long passes a pole in 15 seconds. Its speed (in km/h) is:", options: ["36 km/h", "40 km/h", "45 km/h", "54 km/h"], ans: 0 },
+    { q: "The simple interest on ₹5000 at 8% per annum for 2 years is:", options: ["₹800", "₹1000", "₹1200", "₹600"], ans: 0 },
+    { q: "If 4x + 3y = 18 and 3x + 4y = 17, then x + y = ?", options: ["5", "7", "3", "6"], ans: 0 },
+    { q: "The average of first 50 natural numbers is:", options: ["25", "25.5", "26", "24.5"], ans: 1 },
+  ],
+  english: [
+    { q: "Choose the correct sentence:", options: ["She don't know the answer.", "She doesn't knows the answer.", "She doesn't know the answer.", "She not knowing the answer."], ans: 2 },
+    { q: "The synonym of 'Eloquent' is:", options: ["Silent", "Articulate", "Confused", "Dull"], ans: 1 },
+    { q: "Fill in: 'He is ___ honest man.'", options: ["a", "an", "the", "no article"], ans: 1 },
+    { q: "Identify the passive voice: 'The teacher punished the boy.'", options: ["The boy was punished by the teacher.", "The boy punished by the teacher.", "The boy is being punished.", "The teacher punishes the boy."], ans: 0 },
+    { q: "Antonym of 'Benevolent':", options: ["Kind", "Generous", "Malevolent", "Peaceful"], ans: 2 },
+  ],
+  jkgk: [
+    { q: "Jammu and Kashmir was reorganized into two UTs on:", options: ["October 31, 2019", "August 5, 2019", "January 26, 2020", "November 1, 2019"], ans: 0 },
+    { q: "The first Lt. Governor of J&K UT after reorganization was:", options: ["Girish Chandra Murmu", "Manoj Sinha", "Satya Pal Malik", "Radha Krishna Mathur"], ans: 0 },
+    { q: "Which river passes through the Srinagar city?", options: ["Chenab", "Jhelum", "Ravi", "Indus"], ans: 1 },
+    { q: "Dal Lake is famous for which of the following?", options: ["Floating Gardens", "Boating only", "Power Generation", "Fishing Hub"], ans: 0 },
+    { q: "Pashmina wool comes from which animal?", options: ["Sheep", "Yak", "Changthangi goat", "Camel"], ans: 2 },
+  ],
+  history: [
+    { q: "The revolt of 1857 is also known as:", options: ["Sepoy Mutiny", "First War of Independence", "British Rebellion", "Both A and B"], ans: 3 },
+    { q: "Who founded the Indian National Congress in 1885?", options: ["Bal Gangadhar Tilak", "A.O. Hume", "Dadabhai Naoroji", "Surendranath Banerjee"], ans: 1 },
+    { q: "The partition of Bengal was done in the year:", options: ["1905", "1906", "1907", "1911"], ans: 0 },
+    { q: "Dandi March took place in which year?", options: ["1928", "1930", "1932", "1942"], ans: 1 },
+    { q: "The Quit India Movement was launched in:", options: ["1940", "1941", "1942", "1943"], ans: 2 },
+  ],
+  reasoning: [
+    { q: "If APPLE is coded as BQQMF, how is MANGO coded?", options: ["NBOHP", "NBOQH", "NBOPH", "NAQHP"], ans: 2 },
+    { q: "Find the odd one out: 2, 4, 8, 16, 32, 60", options: ["8", "32", "60", "16"], ans: 2 },
+    { q: "A is the father of B. B is the sister of C. C is the son of D. How is D related to A?", options: ["Son", "Son-in-law", "Father", "Daughter-in-law"], ans: 1 },
+    { q: "If today is Monday, what day will it be after 100 days?", options: ["Sunday", "Wednesday", "Saturday", "Tuesday"], ans: 1 },
+    { q: "Series: 3, 6, 11, 18, 27, ?", options: ["36", "38", "40", "38"], ans: 1 },
+  ]
+};
+
+const subjectNames = { qa: "Quantitative Aptitude", english: "English Grammar", jkgk: "J&K GK", history: "Modern History", reasoning: "Reasoning" };
+let currentSubject = "qa";
+let currentMCQIndex = 0;
+let mcqScore = 0;
+let answered = false;
+
+function showPage(page) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleMobile() {
+  const m = document.getElementById('mobile-menu');
+  m.classList.toggle('open');
+}
+
+function filterCourses(btn, tag) {
+  document.querySelectorAll('.subject-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#courses-grid .course-card').forEach(card => {
+    if (tag === 'all' || card.dataset.tag.includes(tag)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function switchMockTab(btn, tabId) {
+  document.querySelectorAll('.section-nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-full-length').classList.add('hidden');
+  document.getElementById('tab-topic-mcq').classList.add('hidden');
+  document.getElementById('tab-prev-papers').classList.add('hidden');
+  document.getElementById('tab-' + tabId).classList.remove('hidden');
+  if (tabId === 'topic-mcq') loadMCQ(document.querySelector('.sidebar-item.active'), 'qa');
+  lucide.createIcons();
+}
+
+function loadMCQ(el, subject) {
+  if (el) {
+    document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+  }
+  currentSubject = subject;
+  currentMCQIndex = 0;
+  mcqScore = 0;
+  answered = false;
+  document.getElementById('mcq-score').textContent = 0;
+  document.getElementById('mcq-subject-title').textContent = subjectNames[subject];
+  document.getElementById('mcq-total').textContent = mcqData[subject].length;
+  renderMCQ();
+}
+
+function renderMCQ() {
+  const q = mcqData[currentSubject][currentMCQIndex];
+  document.getElementById('mcq-current').textContent = currentMCQIndex + 1;
+  const pct = ((currentMCQIndex + 1) / mcqData[currentSubject].length) * 100;
+  document.getElementById('mcq-progress').style.width = pct + '%';
+  answered = false;
+
+  let html = `<p class="font-semibold text-base mb-5 leading-relaxed">${q.q}</p>`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="mcq-option" onclick="answerMCQ(this,${i})">${String.fromCharCode(65+i)}) ${opt}</button>`;
+  });
+  document.getElementById('mcq-question-area').innerHTML = html;
+}
+
+function answerMCQ(btn, idx) {
+  if (answered) return;
+  answered = true;
+  const q = mcqData[currentSubject][currentMCQIndex];
+  document.querySelectorAll('.mcq-option').forEach((b, i) => {
+    if (i === q.ans) b.classList.add('correct');
+    else if (i === idx && idx !== q.ans) b.classList.add('wrong');
+  });
+  if (idx === q.ans) {
+    mcqScore++;
+    document.getElementById('mcq-score').textContent = mcqScore;
+  }
+}
+
+function nextMCQ() {
+  if (!answered) { showToast('Please answer the question first!'); return; }
+  currentMCQIndex++;
+  if (currentMCQIndex >= mcqData[currentSubject].length) {
+    document.getElementById('mcq-question-area').innerHTML = `
+      <div class="text-center py-8">
+        <div class="text-5xl font-bold mb-3" style="color:var(--forest)">${mcqScore}/${mcqData[currentSubject].length}</div>
+        <p class="text-gray-500 mb-6">You've completed the ${subjectNames[currentSubject]} quiz!</p>
+        <button class="btn-primary" onclick="loadMCQ(null,'${currentSubject}')" style="border-radius:0.75rem;">Try Again</button>
+      </div>`;
+    document.getElementById('mcq-progress').style.width = '100%';
+    document.getElementById('mcq-next-btn').style.display = 'none';
+    return;
+  }
+  renderMCQ();
+  document.getElementById('mcq-next-btn').style.display = '';
+}
+
+function switchResTab(el, tab) {
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['res-notes','res-eco','res-current'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  document.getElementById('res-' + tab).classList.remove('hidden');
+}
+
+function downloadResource(name) {
+  showToast('Preparing download: ' + name);
+}
+
+function startMockTest(card, name, questions, time) {
+  showToast('Starting: ' + name + ' — ' + questions + 'Q / ' + time + ' min');
+}
+
+function submitContact() {
+  showToast('Message sent! We will respond soon via Telegram. 🌿');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.style.opacity = '1';
+  t.style.pointerEvents = 'auto';
+  setTimeout(() => { t.style.opacity = '0'; t.style.pointerEvents = 'none'; }, 3000);
+}
+
+// Initialize
+window.addEventListener('load', () => {
+  lucide.createIcons();
+  loadMCQ(null, 'qa');
+});
+</script>
+</body>
+</html>
